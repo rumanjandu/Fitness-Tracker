@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">FitnessTracker</string>
+    <string name="login_page">Login Page</string>
+    <string name="register_page">Register Page</string>
+</resources>
