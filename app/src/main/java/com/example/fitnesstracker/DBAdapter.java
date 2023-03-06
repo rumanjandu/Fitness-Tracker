@@ -10,7 +10,7 @@ import android.util.Log;
 public class DBAdapter {
     // Variables
     private static final String databaseName = "fitnesstrack";
-    private static final int databaseVersion = 22;
+    private static final int databaseVersion = 23;
 
     // Database Variables
     private final Context context;
@@ -128,11 +128,20 @@ public class DBAdapter {
 
                 db.execSQL("CREATE TABLE IF NOT EXISTS users (" +
                         " user_id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                        " username VARCHAR," +
-                        " password VARCHAR," +
-                        " height INT," +
-                        " weight INT," +
-                        " age INT);");
+                        " user_email VARCHAR," +
+                        " user_password VARCHAR," +
+                        " user_alias VARCHAR," +
+                        " user_dob DATE," +
+                        " user_gender VARCHAR," +
+                        " user_location VARCHAR," +
+                        " user_height DOUBLE," +
+                        " user_weight DOUBLE," +
+                        " user_activity_level VARCHAR," +
+                        " user_goal_weight DOUBLE," +
+                        " user_goal_date DATE," +
+                        " user_goal_calories DOUBLE," +
+                        " user_last_seen TIME," +
+                        " user_age INT);");
 
 
 
@@ -142,6 +151,7 @@ public class DBAdapter {
         }
 
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion){
+            db.execSQL("DROP TABLE IF EXISTS users");
             db.execSQL("DROP TABLE IF EXISTS food_diary_cal_eaten");
             db.execSQL("DROP TABLE IF EXISTS food_diary");
             db.execSQL("DROP TABLE IF EXISTS food");
