@@ -36,7 +36,7 @@
         <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/register_page"
+        android:text="@string/login_page"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:id="@+id/login_button">

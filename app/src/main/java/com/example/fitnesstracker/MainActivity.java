@@ -40,8 +40,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             setupInsert.insertAllFood();
         }
 
+        //count number of rows in user
+        numberRows = db.count("users");
+        if (numberRows < 1){
+            Intent i = new Intent(MainActivity.this, registerScreen.class);
+            startActivity(i);
+        }
+
+
         // Insert foods for table
         db.close();
+
+
 
     }
     public void onClick(View v)
