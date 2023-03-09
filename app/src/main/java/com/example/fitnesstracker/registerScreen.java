@@ -1,67 +1,81 @@
 package com.example.fitnesstracker;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.Toast;
+
+import java.util.Calendar;
 
 public class registerScreen extends AppCompatActivity {
 
-    private EditText etName, etEmail, etDateOfBirth, etHeight, etWeight, etPassword, etAge;
-    private RadioGroup rgGender;
-    private RadioButton rbMale, rbFemale;
-    private Button btnRegister;
+    private DatePickerDialog datePickerDialog;
+    private Button dobButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_screen);
+        initDatePicker();
+        dobButton = findViewById(R.id.dobPickerButton);
+        dobButton.setText(getTodaysDate());
+    }
 
-        etName = findViewById(R.id.et_name);
-        etEmail = findViewById(R.id.et_email);
-        etDateOfBirth = findViewById(R.id.et_date_of_birth);
-        etHeight = findViewById(R.id.et_height);
-        etWeight = findViewById(R.id.et_weight);
-        etPassword = findViewById(R.id.et_password);
-        etAge = findViewById(R.id.et_age);
+    private String getTodaysDate() {
+        Calendar cal = Calendar.getInstance();
+        int year = cal.get(Calendar.YEAR);
+        int month = cal.get(Calendar.MONTH);
+        month = month + 1;
+        int day = cal.get(Calendar.DAY_OF_MONTH);
+        return makeDateString(day, month, year);
+    }
 
-        rgGender = findViewById(R.id.rg_gender);
-        rbMale = findViewById(R.id.rb_male);
-        rbFemale = findViewById(R.id.rb_female);
+    private String makeDateString(int day, int month, int year) {
+        return getMonthFormat(month) + " " + day + " " + year;
+    }
 
-        btnRegister = findViewById(R.id.btn_register);
-        btnRegister.setOnClickListener(new View.OnClickListener() {
+    private String getMonthFormat(int month) {
+        if (month == 1) return "Jan";
+        if (month == 2) return "Feb";
+        if (month == 3) return "Mar";
+        if (month == 4) return "Apr";
+        if (month == 5) return "May";
+        if (month == 6) return "Jun";
+        if (month == 7) return "Jul";
+        if (month == 8) return "Aug";
+        if (month == 9) return "Sep";
+        if (month == 10) return "Oct";
+        if (month == 11) return "Nov";
+        if (month == 12) return "Dec";
+        return "Jan";
+    }
+
+    private void initDatePicker(){
+        DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
-            public void onClick(View view) {
-                // Get values from input fields
-                String name = etName.getText().toString().trim();
-                String email = etEmail.getText().toString().trim();
-                String dateOfBirth = etDateOfBirth.getText().toString().trim();
-                int height = Integer.parseInt(etHeight.getText().toString().trim());
-                int weight = Integer.parseInt(etWeight.getText().toString().trim());
-                String password = etPassword.getText().toString().trim();
-                int age = Integer.parseInt(etAge.getText().toString().trim());
-                String gender = "";
-
-                // Get selected gender
-                int selectedGenderId = rgGender.getCheckedRadioButtonId();
-                if (selectedGenderId == rbMale.getId()) {
-                    gender = "Male";
-                } else if (selectedGenderId == rbFemale.getId()) {
-                    gender = "Female";
-                }
-
-                // Perform registration logic here
-                // ...
-
-                // Show a toast message to indicate successful registration
-                String message = "Successfully registered " + name + "!";
-                Toast.makeText(registerScreen.this, message, Toast.LENGTH_SHORT).show();
+            public void onDateSet(android.widget.DatePicker view, int year, int month, int dayOfMonth) {
+                month = month + 1;
+                String date = makeDateString(dayOfMonth, month, year);
+                dobButton.setText(date);
             }
-        });
+        };
+        Calendar cal = Calendar.getInstance();
+        int year = cal.get(Calendar.YEAR);
+        int month = cal.get(Calendar.MONTH);
+        int day = cal.get(Calendar.DAY_OF_MONTH);
+        int style = AlertDialog.THEME_HOLO_LIGHT;
+
+
+
+        datePickerDialog = new DatePickerDialog(this, style, dateSetListener, year, month, day);
+        datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis());
+    }
+
+
+    public void openDOBPicker(View view) {
+        datePickerDialog.show();
     }
 }
