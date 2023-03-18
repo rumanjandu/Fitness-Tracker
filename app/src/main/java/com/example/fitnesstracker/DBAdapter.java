@@ -34,6 +34,31 @@ public class DBAdapter {
         DBHelper.close();
     }
 
+    //quote smart
+    public String quoteSmart(String value) {
+        boolean isNumeric = false;
+        try {
+            Double num = Double.parseDouble(value);
+            isNumeric = true;
+        } catch (NumberFormatException e) {
+            System.out.println("Could not parse " + e);
+        }
+        if (isNumeric == false){
+            //Escapes special characters in a string for use in an SQL statement
+            if (value != null && value.length() > 0) {
+                value = value.replace("\\", "\\\\");
+                value = value.replace("'", "\\'");
+                value = value.replace("\0", "\\0");
+                value = value.replace("\n", "\\n");
+                value = value.replace("\r", "\\r");
+                value = value.replace("\"", "\\\"");
+                value = value.replace("\\x1a", "\\Z");
+            }
+        }
+        return value;
+    }
+
+
 
     public void insert(String table, String fields, String values) {
 

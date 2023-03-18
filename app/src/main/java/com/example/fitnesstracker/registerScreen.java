@@ -22,6 +22,17 @@ public class registerScreen extends AppCompatActivity {
         initDatePicker();
         dobButton = findViewById(R.id.dobPickerButton);
         dobButton.setText(getTodaysDate());
+
+        Button buttonSignup= findViewById(R.id.buttonSignup);
+        buttonSignup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(registerScreen.this);
+                builder.setMessage("Registration Successful");
+                builder.show();
+            }
+        });
+
     }
 
     private String getTodaysDate() {
