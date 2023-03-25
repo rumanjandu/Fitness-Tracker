@@ -23,6 +23,7 @@
     <string name="measurementSystem" />
 
     <string-array name="arrayOfMeasurements">
+        <item>Please Select:</item>
         <item>Metric</item>
         <item>Imperial</item>
     </string-array>

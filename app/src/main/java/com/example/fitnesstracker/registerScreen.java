@@ -4,9 +4,16 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RadioGroup;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Calendar;
 
@@ -23,16 +30,118 @@ public class registerScreen extends AppCompatActivity {
         dobButton = findViewById(R.id.dobPickerButton);
         dobButton.setText(getTodaysDate());
 
-        Button buttonSignup= findViewById(R.id.buttonSignup);
+        Button buttonSignup = (Button) findViewById(R.id.buttonSignup);
         buttonSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(registerScreen.this);
-                builder.setMessage("Registration Successful");
-                builder.show();
+                signUpSubmit();
             }
         });
 
+    }
+
+    public void signUpSubmit() {
+        //error checking
+        int error = 0;
+
+
+        //email
+        TextView textViewEmail = (TextView) findViewById(R.id.textViewEmail);
+
+
+        EditText editTextEmail = (EditText) findViewById(R.id.editTextEmailAddress);
+        String email = editTextEmail.getText().toString();
+        if (email.isEmpty()) {
+            editTextEmail.setError("Email is required");
+            error = 1;
+            textViewEmail.setTextColor(Color.RED);
+        }
+        else {
+            textViewEmail.setTextColor(Color.BLACK);
+        }
+
+        //dob
+        String todaysDate = getTodaysDate();
+        TextView textViewDOB = (TextView) findViewById(R.id.textViewDOB);
+        if (dobButton.getText().toString().equals(todaysDate)){
+            Toast.makeText(this, "Please enter a valid date of birth", Toast.LENGTH_SHORT).show();
+            error = 1;
+            textViewDOB.setTextColor(Color.RED);
+        }
+        else {
+            textViewDOB.setTextColor(Color.BLACK);
+        }
+
+        //function to check if gender radio button is selected
+        RadioGroup radioGroupGender = (RadioGroup) findViewById(R.id.radioGroupGender);
+        TextView textViewGender = (TextView) findViewById(R.id.textViewGender);
+        int selectedId = radioGroupGender.getCheckedRadioButtonId();
+
+        if (selectedId == -1) {
+            Toast.makeText(this, "Please select a gender", Toast.LENGTH_SHORT).show();
+            error = 1;
+            textViewGender.setTextColor(Color.RED);
+        }
+        else {
+            textViewGender.setTextColor(Color.BLACK);
+        }
+
+        //measurements
+        Spinner spinnerMeasurements = (Spinner) findViewById(R.id.spinnerMeasurementSystem);
+        TextView textViewMeasurements = (TextView) findViewById(R.id.textViewMeasurementSystem);
+        boolean isMeasurementSystemSelected = isMeasurementSystemSelected(spinnerMeasurements);
+        if (isMeasurementSystemSelected) {
+            // a measurement system has been selected
+            textViewMeasurements.setTextColor(Color.BLACK);
+        } else {
+            // a measurement system has not been selected
+            textViewMeasurements.setTextColor(Color.RED);
+            Toast.makeText(this, "Please select a measurement system", Toast.LENGTH_SHORT).show();
+        }
+
+        //height
+        TextView textViewHeight = (TextView) findViewById(R.id.textViewHeight);
+        EditText editTextHeightFeet = (EditText) findViewById(R.id.editTextHeightFeet);
+        EditText editTextHeightInches = (EditText) findViewById(R.id.editTextHeightInches);
+        String heightFeet = editTextHeightFeet.getText().toString();
+        String heightInches = editTextHeightInches.getText().toString();
+        if (heightFeet.isEmpty() || heightInches.isEmpty()) {
+            editTextHeightFeet.setError("Height is required");
+            editTextHeightInches.setError("Height is required");
+            error = 1;
+            textViewHeight.setTextColor(Color.RED);
+        }
+        else {
+            textViewHeight.setTextColor(Color.BLACK);
+        }
+
+        //weight
+        TextView textViewWeight = (TextView) findViewById(R.id.textViewWeight);
+        EditText editTextWeight = (EditText) findViewById(R.id.editTextWeight);
+        String weight = editTextWeight.getText().toString();
+        if (weight.isEmpty()) {
+            editTextWeight.setError("Weight is required");
+            error = 1;
+            textViewWeight.setTextColor(Color.RED);
+        }
+        else {
+            textViewWeight.setTextColor(Color.BLACK);
+        }
+
+    }
+
+    private boolean isMeasurementSystemSelected(Spinner spinnerMeasurements) {
+        int selectedPosition = spinnerMeasurements.getSelectedItemPosition();
+        if (selectedPosition == AdapterView.INVALID_POSITION) {
+            // nothing is selected
+            return false;
+        } else if (selectedPosition == 0) {
+            // "Select a measurement system" is selected
+            return false;
+        } else {
+            // a valid measurement system is selected
+            return true;
+        }
     }
 
     private String getTodaysDate() {

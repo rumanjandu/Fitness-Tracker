@@ -2,4 +2,7 @@
 <resources>
     <item name="editTextHeightFeet" type="id" />
     <item name="editTextHeightInches" type="id" />
+    <item name="textViewMeasurementSystem" type="id" />
+    <item name="textViewHeight" type="id" />
+    <item name="textViewWeight" type="id" />
 </resources>
