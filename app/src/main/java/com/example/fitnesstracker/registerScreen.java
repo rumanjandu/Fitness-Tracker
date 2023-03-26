@@ -128,6 +128,35 @@ public class registerScreen extends AppCompatActivity {
             textViewWeight.setTextColor(Color.BLACK);
         }
 
+        //activity level
+        Spinner spinnerActivityLevel = (Spinner) findViewById(R.id.spinnerActivityLevel);
+        TextView textViewActivityLevel = (TextView) findViewById(R.id.textViewActivityLevel);
+        boolean isActivityLevelSelected = isActivityLevelSelected(spinnerActivityLevel);
+        if (isActivityLevelSelected) {
+            // an activity level has been selected
+            textViewActivityLevel.setTextColor(Color.BLACK);
+        } else {
+            // an activity level has not been selected
+            error = 1;
+            textViewActivityLevel.setTextColor(Color.RED);
+            Toast.makeText(this, "Please select an activity level", Toast.LENGTH_SHORT).show();
+        }
+
+
+    }
+
+    private boolean isActivityLevelSelected(Spinner spinnerActivityLevel) {
+        int selectedPosition = spinnerActivityLevel.getSelectedItemPosition();
+        if (selectedPosition == AdapterView.INVALID_POSITION) {
+            // nothing is selected
+            return false;
+        } else if (selectedPosition == 0) {
+            // "Select an activity level" is selected
+            return false;
+        } else {
+            // a valid activity level is selected
+            return true;
+        }
     }
 
     private boolean isMeasurementSystemSelected(Spinner spinnerMeasurements) {

@@ -5,4 +5,5 @@
     <item name="textViewMeasurementSystem" type="id" />
     <item name="textViewHeight" type="id" />
     <item name="textViewWeight" type="id" />
+    <item name="textViewActivityLevel" type="id" />
 </resources>
