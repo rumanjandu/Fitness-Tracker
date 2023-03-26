@@ -40,6 +40,10 @@ public class registerScreen extends AppCompatActivity {
 
     }
 
+    public void measurementChanged() {
+
+    }
+
     public void signUpSubmit() {
         //error checking
         int error = 0;
@@ -141,6 +145,12 @@ public class registerScreen extends AppCompatActivity {
             textViewActivityLevel.setTextColor(Color.RED);
             Toast.makeText(this, "Please select an activity level", Toast.LENGTH_SHORT).show();
         }
+
+        //submit button will only work if there are no errors and all fields are filled in correctly
+        if (error == 0) {
+            Toast.makeText(this, "Sign up successful", Toast.LENGTH_SHORT).show();
+        }
+
 
 
     }
