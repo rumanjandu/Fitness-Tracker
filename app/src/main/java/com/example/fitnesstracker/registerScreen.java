@@ -29,6 +29,7 @@ public class registerScreen extends AppCompatActivity {
         initDatePicker();
         dobButton = findViewById(R.id.dobPickerButton);
         dobButton.setText(getTodaysDate());
+        measurementChanged();
 
         Button buttonSignup = (Button) findViewById(R.id.buttonSignup);
         buttonSignup.setOnClickListener(new View.OnClickListener() {
@@ -37,10 +38,6 @@ public class registerScreen extends AppCompatActivity {
                 signUpSubmit();
             }
         });
-
-    }
-
-    public void measurementChanged() {
 
     }
 
@@ -105,13 +102,12 @@ public class registerScreen extends AppCompatActivity {
 
         //height
         TextView textViewHeight = (TextView) findViewById(R.id.textViewHeight);
-        EditText editTextHeightFeet = (EditText) findViewById(R.id.editTextHeightFeet);
+        EditText editTextHeightFeet = (EditText) findViewById(R.id.editTextHeight);
         EditText editTextHeightInches = (EditText) findViewById(R.id.editTextHeightInches);
         String heightFeet = editTextHeightFeet.getText().toString();
         String heightInches = editTextHeightInches.getText().toString();
-        if (heightFeet.isEmpty() || heightInches.isEmpty()) {
+        if (heightFeet.isEmpty() && heightInches.isEmpty()) {
             editTextHeightFeet.setError("Height is required");
-            editTextHeightInches.setError("Height is required");
             error = 1;
             textViewHeight.setTextColor(Color.RED);
         }
@@ -151,9 +147,80 @@ public class registerScreen extends AppCompatActivity {
             Toast.makeText(this, "Sign up successful", Toast.LENGTH_SHORT).show();
         }
 
-
+        //if all fields are empty, error message will be displayed
+        if (email.isEmpty() && dobButton.getText().toString().equals(todaysDate) && selectedId == -1 && !isMeasurementSystemSelected && heightFeet.isEmpty() && weight.isEmpty() && !isActivityLevelSelected) {
+            Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
+        }
 
     }
+
+    public void measurementChanged(){
+        //measurement system changed once a measurement system has been selected
+        Spinner spinnerMeasurements = (Spinner) findViewById(R.id.spinnerMeasurementSystem);
+        spinnerMeasurements.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String measurementSystem = parent.getItemAtPosition(position).toString();
+                if (measurementSystem.equals("Metric")) {
+                    TextView textViewHeight = findViewById(R.id.textViewHeight);
+                    textViewHeight.setText(R.string.HeightCM);
+                    TextView textViewWeight = findViewById(R.id.textViewWeight);
+                    textViewWeight.setText(R.string.WeightKG);
+
+                    TextView textViewHeightFeet = findViewById(R.id.textViewHeightFeet);
+                    textViewHeightFeet.setText("cm");
+                    textViewHeightFeet.setVisibility(View.VISIBLE);
+
+                    TextView textViewWeightLBS = findViewById(R.id.textViewWeightLbs);
+                    textViewWeightLBS.setText("kg");
+                    textViewWeightLBS.setVisibility(View.VISIBLE);
+
+                    TextView textViewHeightInches = findViewById(R.id.textViewHeightInches);
+                    textViewHeightInches.setVisibility(View.INVISIBLE);
+                    EditText editTextHeightInches = findViewById(R.id.editTextHeightInches);
+                    editTextHeightInches.setVisibility(View.INVISIBLE);
+                }
+                else if (measurementSystem.equals("Imperial")) {
+                    TextView textViewHeight = findViewById(R.id.textViewHeight);
+                    textViewHeight.setText(R.string.HeightFT);
+                    TextView textViewWeight = findViewById(R.id.textViewWeight);
+                    textViewWeight.setText(R.string.WeightLBS);
+
+                    TextView textViewHeightFeet = findViewById(R.id.textViewHeightFeet);
+                    textViewHeightFeet.setText("ft");
+                    textViewHeightFeet.setVisibility(View.VISIBLE);
+                    TextView textViewHeightInches = findViewById(R.id.textViewHeightInches);
+                    textViewHeightInches.setVisibility(View.VISIBLE);
+                    EditText editTextHeightInches = findViewById(R.id.editTextHeightInches);
+                    editTextHeightInches.setVisibility(View.VISIBLE);
+
+                    TextView textViewWeightLBS = findViewById(R.id.textViewWeightLbs);
+                    textViewWeightLBS.setText("lbs");
+                    textViewWeightLBS.setVisibility(View.VISIBLE);
+                }
+                else {
+                    TextView textViewHeight = findViewById(R.id.textViewHeight);
+                    textViewHeight.setText("Height");
+                    TextView textViewWeight = findViewById(R.id.textViewWeight);
+                    textViewWeight.setText("Weight");
+                    TextView textViewHeightFeet = findViewById(R.id.textViewHeightFeet);
+                    textViewHeightFeet.setVisibility(View.INVISIBLE);
+                    TextView textViewWeightLBS = findViewById(R.id.textViewWeightLbs);
+                    textViewWeightLBS.setVisibility(View.INVISIBLE);
+                    TextView textViewHeightInches = findViewById(R.id.textViewHeightInches);
+                    textViewHeightInches.setVisibility(View.INVISIBLE);
+                    EditText editTextHeightInches = findViewById(R.id.editTextHeightInches);
+                    editTextHeightInches.setVisibility(View.INVISIBLE);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // do nothing
+            }
+        });
+    }
+
 
     private boolean isActivityLevelSelected(Spinner spinnerActivityLevel) {
         int selectedPosition = spinnerActivityLevel.getSelectedItemPosition();

@@ -8,6 +8,10 @@
     <string name="male">Male</string>
     <string name="female">Female</string>
     <string name="height">Height:</string>
+    <string name="HeightCM">Height (cm)</string>
+    <string name="WeightLBS">Weight (lbs)</string>
+    <string name="WeightKG">Weight (kg)</string>
+    <string name="HeightFT">Height (ft)</string>
     <string name="activity_level">Activity Level:</string>
     <string name="weight">Weight:</string>
     <string name="target_weight">Target Weight</string>

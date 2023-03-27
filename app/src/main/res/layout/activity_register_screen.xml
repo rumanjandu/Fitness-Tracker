@@ -178,15 +178,17 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
                         <EditText
-                            android:id="@+id/editTextHeightFeet"
+                            android:id="@+id/editTextHeight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:ems="3"
-                            android:inputType="number" />
+                            android:inputType="numberDecimal" />
 
                         <TextView
+                            android:id="@+id/textViewHeightFeet"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:visibility="invisible"
                             android:text="ft" />
 
                         <EditText
@@ -194,12 +196,16 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:ems="3"
-                            android:inputType="number" />
+                            android:visibility="invisible"
+                            android:inputType="numberDecimal" />
 
                         <TextView
+                            android:id="@+id/textViewHeightInches"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:visibility="invisible"
                             android:text="in" />
+
                     </TableRow>
 
                 </TableLayout>
@@ -230,13 +236,14 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:ems="3"
-                            android:inputType="number" />
+                            android:inputType="numberDecimal" />
 
                         <TextView
-                            android:id="@+id/textViewKG"
+                            android:id="@+id/textViewWeightLbs"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Kg">
+                            android:visibility="invisible"
+                            android:text="lbs">
                         </TextView>
 
                     </TableRow>
