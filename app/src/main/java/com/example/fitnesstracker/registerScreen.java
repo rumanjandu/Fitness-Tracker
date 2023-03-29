@@ -4,12 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -56,39 +58,42 @@ public class registerScreen extends AppCompatActivity {
             editTextEmail.setError("Email is required");
             error = 1;
             textViewEmail.setTextColor(Color.RED);
-        }
-        else {
+        } else {
             textViewEmail.setTextColor(Color.BLACK);
         }
 
         //dob
         String todaysDate = getTodaysDate();
         TextView textViewDOB = (TextView) findViewById(R.id.textViewDOB);
-        if (dobButton.getText().toString().equals(todaysDate)){
+        String dob = dobButton.getText().toString();
+        if (dob.equals(todaysDate)) {
             Toast.makeText(this, "Please enter a valid date of birth", Toast.LENGTH_SHORT).show();
             error = 1;
             textViewDOB.setTextColor(Color.RED);
-        }
-        else {
+        } else {
             textViewDOB.setTextColor(Color.BLACK);
         }
 
         //function to check if gender radio button is selected
-        RadioGroup radioGroupGender = (RadioGroup) findViewById(R.id.radioGroupGender);
         TextView textViewGender = (TextView) findViewById(R.id.textViewGender);
+        RadioGroup radioGroupGender = (RadioGroup) findViewById(R.id.radioGroupGender);
         int selectedId = radioGroupGender.getCheckedRadioButtonId();
+        String selectedGenderValue = "";
 
         if (selectedId == -1) {
             Toast.makeText(this, "Please select a gender", Toast.LENGTH_SHORT).show();
             error = 1;
             textViewGender.setTextColor(Color.RED);
-        }
-        else {
+        } else if (selectedId != -1) {
             textViewGender.setTextColor(Color.BLACK);
+            RadioButton selectedGenderRadioButton = (RadioButton) findViewById(selectedId);
+            selectedGenderValue = selectedGenderRadioButton.getText().toString();
         }
+
 
         //measurements
         Spinner spinnerMeasurements = (Spinner) findViewById(R.id.spinnerMeasurementSystem);
+        String stringMeasurementSystem = spinnerMeasurements.getSelectedItem().toString();
         TextView textViewMeasurements = (TextView) findViewById(R.id.textViewMeasurementSystem);
         boolean isMeasurementSystemSelected = isMeasurementSystemSelected(spinnerMeasurements);
         if (isMeasurementSystemSelected) {
@@ -100,37 +105,85 @@ public class registerScreen extends AppCompatActivity {
             Toast.makeText(this, "Please select a measurement system", Toast.LENGTH_SHORT).show();
         }
 
-        //height
-        TextView textViewHeight = (TextView) findViewById(R.id.textViewHeight);
-        EditText editTextHeightFeet = (EditText) findViewById(R.id.editTextHeight);
-        EditText editTextHeightInches = (EditText) findViewById(R.id.editTextHeightInches);
+        //height (feet)
+        TextView textViewHeight = findViewById(R.id.textViewHeight);
+        EditText editTextHeightFeet = findViewById(R.id.editTextHeight);
+        EditText editTextHeightInches = findViewById(R.id.editTextHeightInches);
         String heightFeet = editTextHeightFeet.getText().toString();
         String heightInches = editTextHeightInches.getText().toString();
         if (heightFeet.isEmpty() && heightInches.isEmpty()) {
             editTextHeightFeet.setError("Height is required");
             error = 1;
             textViewHeight.setTextColor(Color.RED);
-        }
-        else {
+        } else {
             textViewHeight.setTextColor(Color.BLACK);
         }
+
+        //height (cm)
+        EditText editTextHeightCM = findViewById(R.id.editTextHeight);
+        String heightCM = editTextHeightCM.getText().toString();
+        if (heightCM.isEmpty()) {
+            editTextHeightCM.setError("Height is required");
+            error = 1;
+            textViewHeight.setTextColor(Color.RED);
+        } else {
+            textViewHeight.setTextColor(Color.BLACK);
+        }
+
+        // Get height in feet and inches
+        String heightFeetString = editTextHeightFeet.getText().toString();
+        String heightInchesString = editTextHeightInches.getText().toString();
+
+        double heightCMDouble = 0;
+        if (heightFeetString.isEmpty() && heightInchesString.isEmpty()) {
+            editTextHeightFeet.setError("Height is required");
+            error = 1;
+            textViewHeight.setTextColor(Color.RED);
+        } else {
+            // Convert height from feet and inches to centimeters
+            double heightFeetDouble = Double.parseDouble(heightFeetString);
+            double heightInchesDouble = Double.parseDouble(heightInchesString);
+            heightCMDouble = (heightFeetDouble * 12 + heightInchesDouble) * 2.54;
+            String heightCmString = String.format("%.2f", heightCMDouble);
+
+            // Set the converted height in centimeters to the editTextHeightCM
+            //editTextHeightCM.setText(heightCmString);
+
+            // Clear any errors and set text color to black
+            editTextHeightFeet.setError(null);
+            editTextHeightInches.setError(null);
+            textViewHeight.setTextColor(Color.BLACK);
+        }
+
+        // Validate height in centimeters
+        String heightCMString = editTextHeightCM.getText().toString();
+        if (heightCMString.isEmpty()) {
+            editTextHeightCM.setError("Height is required");
+            error = 1;
+            textViewHeight.setTextColor(Color.RED);
+        } else {
+            textViewHeight.setTextColor(Color.BLACK);
+        }
+
 
         //weight
         TextView textViewWeight = (TextView) findViewById(R.id.textViewWeight);
         EditText editTextWeight = (EditText) findViewById(R.id.editTextWeight);
         String weight = editTextWeight.getText().toString();
+        Double weightDouble = Double.parseDouble(weight);
         if (weight.isEmpty()) {
             editTextWeight.setError("Weight is required");
             error = 1;
             textViewWeight.setTextColor(Color.RED);
-        }
-        else {
+        } else {
             textViewWeight.setTextColor(Color.BLACK);
         }
 
         //activity level
-        Spinner spinnerActivityLevel = (Spinner) findViewById(R.id.spinnerActivityLevel);
-        TextView textViewActivityLevel = (TextView) findViewById(R.id.textViewActivityLevel);
+        Spinner spinnerActivityLevel = findViewById(R.id.spinnerActivityLevel);
+        String activityLevelString = spinnerActivityLevel.getSelectedItem().toString();
+        TextView textViewActivityLevel = findViewById(R.id.textViewActivityLevel);
+        int intActivityLevel = spinnerActivityLevel.getSelectedItemPosition();
         boolean isActivityLevelSelected = isActivityLevelSelected(spinnerActivityLevel);
         if (isActivityLevelSelected) {
             // an activity level has been selected
@@ -151,6 +204,31 @@ public class registerScreen extends AppCompatActivity {
         if (email.isEmpty() && dobButton.getText().toString().equals(todaysDate) && selectedId == -1 && !isMeasurementSystemSelected && heightFeet.isEmpty() && weight.isEmpty() && !isActivityLevelSelected) {
             Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
         }
+
+        //Insert into database
+
+        DBAdapter db = new DBAdapter(this);
+        db.open();
+
+        //quote smart
+        String stringEmailSQL = db.quoteSmart(email);
+        String stringDOBSQL = db.quoteSmart(dob);
+        String stringGenderSQL = db.quoteSmart(selectedGenderValue);
+        Double doubleHeightCMDoubleSQL = db.quoteSmart(heightCMDouble);
+        Double doubleWeightDoubleSQL = db.quoteSmart(weightDouble);
+        String activityLevelSQL = db.quoteSmart(activityLevelString);
+        String stringMeasurementSQL = db.quoteSmart(stringMeasurementSystem);
+
+        String stringInput = "NULL, " + stringEmailSQL + ", " + stringDOBSQL + ", " + stringGenderSQL + ", " + doubleHeightCMDoubleSQL + ", " + doubleWeightDoubleSQL + ", " + activityLevelSQL + ", " + stringMeasurementSQL;
+
+
+        db.insert("users",
+                "user_id, user_email, user_dob, user_gender, user_height, user_weight, user_activity_level, user_measurement_system",
+                stringInput);
+
+
+        db.close();
+
 
     }
 
@@ -219,6 +297,7 @@ public class registerScreen extends AppCompatActivity {
                 // do nothing
             }
         });
+
     }
 
 

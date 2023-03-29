@@ -10,7 +10,7 @@ import android.util.Log;
 public class DBAdapter {
     // Variables
     private static final String databaseName = "fitnesstrack";
-    private static final int databaseVersion = 23;
+    private static final int databaseVersion = 26;
 
     // Database Variables
     private final Context context;
@@ -55,8 +55,18 @@ public class DBAdapter {
                 value = value.replace("\\x1a", "\\Z");
             }
         }
+        value = "'" + value + "'";
+
         return value;
     }
+
+    public double quoteSmart(double value) {
+        return value;
+    }
+    public int quoteSmart(int value) {
+        return value;
+    }
+
 
 
 
@@ -166,6 +176,7 @@ public class DBAdapter {
                         " user_goal_date DATE," +
                         " user_goal_calories DOUBLE," +
                         " user_last_seen TIME," +
+                        " user_measurement_system VARCHAR," +
                         " user_age INT);");
 
 
