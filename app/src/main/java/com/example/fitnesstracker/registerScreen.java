@@ -17,6 +17,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.DecimalFormat;
 import java.util.Calendar;
 
 public class registerScreen extends AppCompatActivity {
@@ -179,6 +180,16 @@ public class registerScreen extends AppCompatActivity {
             textViewWeight.setTextColor(Color.BLACK);
         }
 
+        //converting weight from pounds to kilograms
+        if (stringMeasurementSystem.equals("Imperial")) {
+            // convert weight from lb to kg
+            weightDouble = weightDouble / 2.20462;
+            DecimalFormat df = new DecimalFormat("#.##");
+            weightDouble = Double.valueOf(df.format(weightDouble));
+        }
+
+
+
         //activity level
         Spinner spinnerActivityLevel = findViewById(R.id.spinnerActivityLevel);
         String activityLevelString = spinnerActivityLevel.getSelectedItem().toString();
@@ -215,11 +226,11 @@ public class registerScreen extends AppCompatActivity {
         String stringDOBSQL = db.quoteSmart(dob);
         String stringGenderSQL = db.quoteSmart(selectedGenderValue);
         Double doubleHeightCMDoubleSQL = db.quoteSmart(heightCMDouble);
-        Double doubleWeightDoubleSQL = db.quoteSmart(weightDouble);
+        Double doubleWeightKGDoubleSQL = db.quoteSmart(weightDouble);
         String activityLevelSQL = db.quoteSmart(activityLevelString);
         String stringMeasurementSQL = db.quoteSmart(stringMeasurementSystem);
 
-        String stringInput = "NULL, " + stringEmailSQL + ", " + stringDOBSQL + ", " + stringGenderSQL + ", " + doubleHeightCMDoubleSQL + ", " + doubleWeightDoubleSQL + ", " + activityLevelSQL + ", " + stringMeasurementSQL;
+        String stringInput = "NULL, " + stringEmailSQL + ", " + stringDOBSQL + ", " + stringGenderSQL + ", " + doubleHeightCMDoubleSQL + ", " + doubleWeightKGDoubleSQL + ", " + activityLevelSQL + ", " + stringMeasurementSQL;
 
 
         db.insert("users",
