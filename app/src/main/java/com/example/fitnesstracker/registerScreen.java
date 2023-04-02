@@ -237,9 +237,11 @@ public class registerScreen extends AppCompatActivity {
                 "user_id, user_email, user_dob, user_gender, user_height, user_weight, user_activity_level, user_measurement_system",
                 stringInput);
 
-
         db.close();
 
+
+        Intent i = new Intent(registerScreen.this, MainActivity.class);
+        startActivity(i);
 
     }
 
