@@ -10,7 +10,7 @@ import android.util.Log;
 public class DBAdapter {
     // Variables
     private static final String databaseName = "fitnesstrack";
-    private static final int databaseVersion = 26;
+    private static final int databaseVersion = 29;
 
     // Database Variables
     private final Context context;
@@ -110,7 +110,24 @@ public class DBAdapter {
         }
         @Override
         public void onCreate(SQLiteDatabase db){
-            try{
+            try {
+                //Create goals table
+                db.execSQL("CREATE TABLE IF NOT EXISTS goals (" +
+                        " goal_id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                        " goal_name VARCHAR," +
+                        " goal_description VARCHAR," +
+                        " goal_date DATE," +
+                        " goal_current_weight DOUBLE," +
+                        " goal_target_weight DOUBLE," +
+                        " goal_weekly_goal DOUBLE);");
+
+            }
+            catch (SQLException e){
+                e.printStackTrace();
+            }
+
+            //Create food calorie intake table
+            try {
                 db.execSQL("CREATE TABLE IF NOT EXISTS food_diary_cal_eaten (" +
                         " calorie_eaten_id INTEGER PRIMARY KEY AUTOINCREMENT," +
                         " calorie_eaten_date DATE," +
@@ -119,7 +136,13 @@ public class DBAdapter {
                         " calorie_eaten_proteins INT," +
                         " calorie_eaten_carbs INT," +
                         " calorie_eaten_fat INT);");
+            }
+            catch (SQLException e){
+                e.printStackTrace();
+            }
 
+            //Create food diary table
+            try {
 
                 db.execSQL("CREATE TABLE IF NOT EXISTS food_diary(" +
                         " fd_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -134,9 +157,13 @@ public class DBAdapter {
                         " fd_fat_calculated DOUBLE," +
                         " fd_user_id INT," +
                         "fd_meal_id INT);");
+            }
+            catch (SQLException e){
+                e.printStackTrace();
+            }
 
-
-
+            //Create food table
+            try {
                 db.execSQL("CREATE TABLE IF NOT EXISTS food ("
                         +  " food_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                             " food_name VARCHAR," +
@@ -160,7 +187,13 @@ public class DBAdapter {
                             " food_image_b VARCHAR," +
                             " food_image_c VARCHAR," +
                             " food_description VARCHAR);");
+            }
+            catch (SQLException e){
+                e.printStackTrace();
+            }
 
+            //Create users table
+            try {
                 db.execSQL("CREATE TABLE IF NOT EXISTS users (" +
                         " user_id INTEGER PRIMARY KEY AUTOINCREMENT," +
                         " user_email VARCHAR," +
@@ -170,10 +203,7 @@ public class DBAdapter {
                         " user_gender VARCHAR," +
                         " user_location VARCHAR," +
                         " user_height DOUBLE," +
-                        " user_weight DOUBLE," +
                         " user_activity_level VARCHAR," +
-                        " user_goal_weight DOUBLE," +
-                        " user_goal_date DATE," +
                         " user_goal_calories DOUBLE," +
                         " user_last_seen TIME," +
                         " user_measurement_system VARCHAR," +
@@ -181,7 +211,8 @@ public class DBAdapter {
 
 
 
-            }catch (SQLException e){
+            }
+            catch (SQLException e){
                 e.printStackTrace();
             }
         }

@@ -13,11 +13,17 @@
         android:theme="@style/Theme.FitnessTracker"
         tools:targetApi="31">
         <activity
+            android:name=".edit_profile_goals"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".LoginActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize">
-
-        <meta-data
+            <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
@@ -25,7 +31,6 @@
             android:name=".registerScreen"
             android:exported="false"
             android:windowSoftInputMode="adjustResize">
-
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />

@@ -230,12 +230,21 @@ public class registerScreen extends AppCompatActivity {
         String activityLevelSQL = db.quoteSmart(activityLevelString);
         String stringMeasurementSQL = db.quoteSmart(stringMeasurementSystem);
 
-        String stringInput = "NULL, " + stringEmailSQL + ", " + stringDOBSQL + ", " + stringGenderSQL + ", " + doubleHeightCMDoubleSQL + ", " + doubleWeightKGDoubleSQL + ", " + activityLevelSQL + ", " + stringMeasurementSQL;
 
-
+        //input for user table
+        String stringInputUsers = "NULL, " + stringEmailSQL + ", " + stringDOBSQL + ", " + stringGenderSQL + ", " + doubleHeightCMDoubleSQL + ", " +  activityLevelSQL + ", " + stringMeasurementSQL;
         db.insert("users",
-                "user_id, user_email, user_dob, user_gender, user_height, user_weight, user_activity_level, user_measurement_system",
-                stringInput);
+                "user_id, user_email, user_dob, user_gender, user_height, user_activity_level, user_measurement_system",
+                stringInputUsers);
+
+       String goalDateSQL = db.quoteSmart(todaysDate);
+
+
+        //insert into goals table
+        String stringInputGoals = "NULL, " + doubleWeightKGDoubleSQL + ", " + goalDateSQL;
+        db.insert("goals",
+                "goal_id, goal_current_weight, goal_date",
+                stringInputGoals);
 
         db.close();
 
