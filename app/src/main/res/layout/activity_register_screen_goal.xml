@@ -1,9 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".registerScreenGoal">
+    android:background="@drawable/background"
+    android:fitsSystemWindows="true"
+    tools:context=".registerScreenGoal"
+    tools:ignore="SpeakableTextPresentCheck">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="72dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="25dp"
+            android:src="@drawable/undraw_fitness_tracker_3033" />
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <!-- Email -->
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <TextView
+                android:id="@+id/textViewTargetWeight"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/target_weight">
+
+            </TextView>
+
+            <EditText
+                android:id="@+id/editTextTargetWeight"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="7"
+                android:inputType="numberDecimal" />
+        </TableRow>
+
+        </TableLayout>
+
+
+
+
+
+
+
+    </LinearLayout>
+
+
+</ScrollView>
