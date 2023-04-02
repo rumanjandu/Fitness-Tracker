@@ -28,7 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        <!-- Email -->
+        <!-- Target Weight -->
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent" >
@@ -45,9 +45,41 @@
                 android:id="@+id/editTextTargetWeight"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="7"
-                android:inputType="numberDecimal" />
+                android:ems="3"
+                android:inputType="numberDecimal"/>
+
+            <TextView
+                android:id="@+id/textViewTargetWeightMeasurementType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/kg">
+
+            </TextView>
         </TableRow>
+
+            <!-- Weekly Goal -->
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                <TextView
+                    android:id="@+id/textViewWeeklyGoal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/weekly_goal">
+
+                </TextView>
+
+                <Spinner
+                    android:id="@+id/spinnerWeeklyGoal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/array_weekly_goal_kg"
+                    android:ems="3">
+                </Spinner>
+
+
+            </TableRow>
 
         </TableLayout>
 

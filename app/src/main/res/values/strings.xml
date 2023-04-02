@@ -14,7 +14,6 @@
     <string name="HeightFT">Height (ft)</string>
     <string name="activity_level">Activity Level:</string>
     <string name="weight">Weight:</string>
-    <string name="target_weight">What is your Target Weight?</string>
     <string name="measurements">Measurements System</string>
     <string name="metric">Metric</string>
     <string name="imperial">Imperial</string>
@@ -26,6 +25,28 @@
     <string name="blank"> </string>
     <string name="activityLevel" />
     <string name="measurementSystem" />
+    <string name="kg">kg</string>
+
+    <string name="weekly_goal">Weekly Weight goal?</string>
+    <string name="target_weight">Target Weight goal?</string>
+
+
+    <string-array name="array_weekly_goal_kg">
+        <item>Lose 0.5kg per week</item>
+        <item>Maintain current weight</item>
+        <item>Gain 0.5kg per week</item>
+    </string-array>
+
+    <string-array name="array_weekly_goal_lb">
+        <item>Lose 0.5lb per week</item>
+        <item>Maintain current weight</item>
+        <item>Gain 0.5lb per week</item>
+    </string-array>
+
+    <string-array name="array_weekly_goal_measurement">
+        <item>kg each week</item>
+        <item>lb each week</item>
+    </string-array>
 
     <string-array name="arrayOfMeasurements">
         <item>Please Select:</item>
