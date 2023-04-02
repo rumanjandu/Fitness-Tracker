@@ -249,7 +249,7 @@ public class registerScreen extends AppCompatActivity {
         db.close();
 
 
-        Intent i = new Intent(registerScreen.this, MainActivity.class);
+        Intent i = new Intent(registerScreen.this, registerScreenGoal.class);
         startActivity(i);
 
     }
