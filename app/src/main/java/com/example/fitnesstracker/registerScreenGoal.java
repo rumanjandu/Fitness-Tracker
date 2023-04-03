@@ -1,10 +1,18 @@
 package com.example.fitnesstracker;
 
+import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
+
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,22 +23,56 @@ public class registerScreenGoal extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_screen_goal);
+        measurementType(findViewById(R.id.spinnerWeeklyGoal));
+
     }
 
-    public void spinnerMeaurementSelection() {
-        Spinner spinnerMeasurements = (Spinner) findViewById(R.id.spinnerMeasurementSystem);
-        String stringMeasurementSystem = spinnerMeasurements.getSelectedItem().toString();
-        TextView textViewMeasurements = (TextView) findViewById(R.id.textViewMeasurementSystem);
-        Spinner spinnerWeeklyGoal = (Spinner) findViewById(R.id.spinnerWeeklyGoal);
+    public void measurementType(View view){
+        DBAdapter.DatabaseHelper dbHelper = new DBAdapter.DatabaseHelper(this);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
 
-        if (stringMeasurementSystem.equals("Metric")) {
-            //do nothing
+        String[] projection = {
+                "user_measurement_system"
+        };
 
-        } else if (stringMeasurementSystem.equals("Imperial")) {
-            //change spinner entries to different array
+        Cursor cursor = db.query(
+                "users",
+                projection,
+                null,
+                null,
+                null,
+                null,
+                "user_id DESC",
+                "1"
+        );
 
-        } else {
+        while (cursor.moveToNext()){
+            String measurementSystem = cursor.getString(cursor.getColumnIndexOrThrow("user_measurement_system"));
 
+            Log.d(TAG, "onCreate: " + measurementSystem);
+
+            Toast.makeText(this, measurementSystem, Toast.LENGTH_SHORT).show();
+
+            if(measurementSystem.equals("Metric")){
+                Spinner weeklyGoalSpinner = (Spinner) findViewById(R.id.spinnerWeeklyGoal);
+                ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.array_weekly_goal_kg, android.R.layout.simple_spinner_item);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                weeklyGoalSpinner.setAdapter(adapter);
+            }
+            else if (measurementSystem.equals("Imperial")){
+                Spinner weeklyGoalSpinner = (Spinner) findViewById(R.id.spinnerWeeklyGoal);
+                ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.array_weekly_goal_lb, android.R.layout.simple_spinner_item);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                weeklyGoalSpinner.setAdapter(adapter);
+            }
+            else{
+                Log.d(TAG, "onCreate: Error");
+            }
         }
+
+        cursor.close();
+        db.close();
+
+
     }
 }

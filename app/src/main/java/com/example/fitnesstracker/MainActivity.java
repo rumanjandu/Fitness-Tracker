@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //count number of rows in user
         numberRows = db.count("users");
-        if (numberRows < 5){
+        if (numberRows < 10){
             Intent i = new Intent(MainActivity.this, registerScreen.class);
             startActivity(i);
         }

@@ -103,11 +103,12 @@ public class DBAdapter {
 
 
     //Database Helper
-    private static class DatabaseHelper extends SQLiteOpenHelper {
-        DatabaseHelper(Context context) {
+    public static class DatabaseHelper extends SQLiteOpenHelper {
+        public DatabaseHelper(Context context) {
             super(context, databaseName, null, databaseVersion);
 
         }
+
         @Override
         public void onCreate(SQLiteDatabase db){
             try {

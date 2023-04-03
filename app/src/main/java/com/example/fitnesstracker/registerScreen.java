@@ -135,6 +135,9 @@ public class registerScreen extends AppCompatActivity {
         String heightFeetString = editTextHeightFeet.getText().toString();
         String heightInchesString = editTextHeightInches.getText().toString();
 
+        heightInchesString = heightInchesString.isEmpty() ? "0" : heightInchesString;
+        heightFeetString = heightFeetString.isEmpty() ? "0" : heightFeetString;
+
         double heightCMDouble = 0;
         if (heightFeetString.isEmpty() && heightInchesString.isEmpty()) {
             editTextHeightFeet.setError("Height is required");
