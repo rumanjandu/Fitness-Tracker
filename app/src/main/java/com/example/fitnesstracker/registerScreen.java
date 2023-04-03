@@ -173,8 +173,13 @@ public class registerScreen extends AppCompatActivity {
         //weight
         TextView textViewWeight = (TextView) findViewById(R.id.textViewWeight);
         EditText editTextWeight = (EditText) findViewById(R.id.editTextWeight);
-        String weight = editTextWeight.getText().toString();
-        Double weightDouble = Double.parseDouble(weight);
+        String weight = editTextWeight.getText().toString().trim();
+
+        Double weightDouble = 0.0;
+        if (!weight.isEmpty()) {
+            weightDouble = Double.parseDouble(weight);
+        }
+
         if (weight.isEmpty()) {
             editTextWeight.setError("Weight is required");
             error = 1;
@@ -215,12 +220,13 @@ public class registerScreen extends AppCompatActivity {
         }
 
         //if all fields are empty, error message will be displayed
-        if (email.isEmpty() && dobButton.getText().toString().equals(todaysDate) && selectedId == -1 && !isMeasurementSystemSelected && heightFeet.isEmpty() && weight.isEmpty() && !isActivityLevelSelected) {
-            Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
+        if (email.isEmpty()) {
+            dobButton.getText().toString();
         }
 
         //Insert into database
 
+        if (error == 0) {
         DBAdapter db = new DBAdapter(this);
         db.open();
 
@@ -250,10 +256,14 @@ public class registerScreen extends AppCompatActivity {
                 stringInputGoals);
 
         db.close();
+        }
 
 
-        Intent i = new Intent(registerScreen.this, registerScreenGoal.class);
-        startActivity(i);
+        //if there are no errors, the user will be taken to the next screen
+        if (error == 0) {
+            Intent i = new Intent(registerScreen.this, registerScreenGoal.class);
+            startActivity(i);
+        }
 
     }
 

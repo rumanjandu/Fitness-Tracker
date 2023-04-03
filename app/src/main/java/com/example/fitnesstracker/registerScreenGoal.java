@@ -51,7 +51,7 @@ public class registerScreenGoal extends AppCompatActivity {
 
             Log.d(TAG, "onCreate: " + measurementSystem);
 
-            Toast.makeText(this, measurementSystem, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Your measurement system is set to: " + measurementSystem, Toast.LENGTH_SHORT).show();
 
             if(measurementSystem.equals("Metric")){
                 Spinner weeklyGoalSpinner = (Spinner) findViewById(R.id.spinnerWeeklyGoal);
