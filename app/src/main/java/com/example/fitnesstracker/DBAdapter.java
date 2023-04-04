@@ -10,7 +10,7 @@ import android.util.Log;
 public class DBAdapter {
     // Variables
     private static final String databaseName = "fitnesstrack";
-    private static final int databaseVersion = 29;
+    private static final int databaseVersion = 32;
 
     // Database Variables
     private final Context context;
@@ -120,6 +120,11 @@ public class DBAdapter {
                         " goal_date DATE," +
                         " goal_current_weight DOUBLE," +
                         " goal_target_weight DOUBLE," +
+                        " goal_kcal INT," +
+                        " goal_energy INT," +
+                        " goal_proteins INT," +
+                        " goal_carbs INT," +
+                        " goal_fat INT," +
                         " goal_weekly_goal DOUBLE);");
 
             }
@@ -223,6 +228,7 @@ public class DBAdapter {
             db.execSQL("DROP TABLE IF EXISTS food_diary_cal_eaten");
             db.execSQL("DROP TABLE IF EXISTS food_diary");
             db.execSQL("DROP TABLE IF EXISTS food");
+            db.execSQL("DROP TABLE IF EXISTS goals");
             onCreate(db);
             String TAG = "TAG";
             Log.w(TAG, "Upgrading database from version " + oldVersion + " to " + newVersion
