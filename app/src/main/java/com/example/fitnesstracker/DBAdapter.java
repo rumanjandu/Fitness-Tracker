@@ -1,5 +1,6 @@
 package com.example.fitnesstracker;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
@@ -99,6 +100,31 @@ public class DBAdapter {
         int count = mCount.getInt(0);
         mCount.close();
         return count;
+    }
+
+    public Cursor selectPrimaryKey(String table, String primaryKey, long rowID, String[] fields) throws SQLException {
+        Cursor mCursor = db.query(table, fields, primaryKey + "=" + rowID, null, null, null, null, null);
+        if (mCursor != null) {
+            mCursor.moveToFirst();
+        }
+        return mCursor;
+    }
+
+    public boolean update(String table, String primaryKey, long rowId, String field, double value) throws SQLException {
+        ContentValues args = new ContentValues();
+        args.put(field, value);
+        return db.update(table, args, primaryKey + "=" + rowId, null) > 0;
+    }
+
+    public boolean update(String table, String primaryKey, long rowId, String field, String value) throws SQLException {
+        // Toast.makeText(context, "UPDATE " + table + " SET " + field + "=" + value + " WHERE " + primaryKey + "=" + rowId, Toast.LENGTH_SHORT).show();
+
+        // Remove first and last value of value
+        value = value.substring(1, value.length()-1); // removes apostrophe after running quote smart
+
+        ContentValues args = new ContentValues();
+        args.put(field, value);
+        return db.update(table, args, primaryKey + "=" + rowId, null) > 0;
     }
 
 

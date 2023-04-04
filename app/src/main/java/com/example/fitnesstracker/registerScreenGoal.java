@@ -133,34 +133,24 @@ public class registerScreenGoal extends AppCompatActivity {
         }
 
 
+        //if no errors, submit to database
+        if(error == 0) {
+            DBAdapter db = new DBAdapter(this);
+            db.open();
 
 
 
+            Double targetWeightDoubleSQL = db.quoteSmart(targetWeightDouble);
+            String weeklyGoalSQL = db.quoteSmart(weeklyGoal);
+
+            //insert into goals table
+            long goalID = 1;
+            db.update("goals", "_id", goalID, "goal_target_weight", targetWeightDoubleSQL);
+            db.update("goals", "_id", goalID, "goal_weekly_goal", weeklyGoalSQL);
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            db.close();
+        }
 
     }
 
