@@ -75,4 +75,47 @@ public class registerScreenGoal extends AppCompatActivity {
 
 
     }
+
+    public void signUpSubmit2(){
+        //error checking
+        int error = 0;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    }
+
+
+
+
+
+
 }

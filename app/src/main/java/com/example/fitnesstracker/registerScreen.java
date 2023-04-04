@@ -48,7 +48,6 @@ public class registerScreen extends AppCompatActivity {
         //error checking
         int error = 0;
 
-
         //email
         TextView textViewEmail = (TextView) findViewById(R.id.textViewEmail);
 
