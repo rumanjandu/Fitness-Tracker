@@ -4,6 +4,7 @@ import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -133,36 +134,37 @@ public class registerScreenGoal extends AppCompatActivity {
         }
 
 
-        //if no errors, submit to database
-        if(error == 0) {
-            DBAdapter db = new DBAdapter(this);
-            db.open();
+        //if no errors, insert into database
+        if (error == 0) {
+            DBAdapter.DatabaseHelper dbHelper = new DBAdapter.DatabaseHelper(this);
+            SQLiteDatabase db = dbHelper.getWritableDatabase();
 
 
+            ContentValues values = new ContentValues();
+            values.put("goal_target_weight", targetWeightDouble);
+            values.put("goal_weekly_goal", weeklyGoal);
+            db.insert("goals", null, values);
 
-            Double targetWeightDoubleSQL = db.quoteSmart(targetWeightDouble);
-            String weeklyGoalSQL = db.quoteSmart(weeklyGoal);
+            Cursor cursor = db.rawQuery("SELECT last_insert_rowid()", null);
+            int goalId = -1;
+            if (cursor.moveToFirst()) {
+                goalId = cursor.getInt(0);
+            }
+            cursor.close();
 
-            //insert into goals table
-            long goalID = 1;
-            db.update("goals", "_id", goalID, "goal_target_weight", targetWeightDoubleSQL);
-            db.update("goals", "_id", goalID, "goal_weekly_goal", weeklyGoalSQL);
-
+            DBAdapter.insertUserGoal(db, goalId, targetWeightDouble, weeklyGoal);
 
             db.close();
-        }
 
+            finish();
+        }
     }
 
-    private boolean weeklyGoalSelected(Spinner spinnerWeeklyGoal) {
+        private boolean weeklyGoalSelected(Spinner spinnerWeeklyGoal) {
         int selectedPosition = spinnerWeeklyGoal.getSelectedItemPosition();
         if (selectedPosition == AdapterView.INVALID_POSITION) {
             return false;
-        } else if (selectedPosition == 0) {
-            return false;
-        } else {
-            return true;
-        }
+        } else return selectedPosition != 0;
     }
 
 

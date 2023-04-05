@@ -11,7 +11,7 @@ import android.util.Log;
 public class DBAdapter {
     // Variables
     private static final String databaseName = "fitnesstrack";
-    private static final int databaseVersion = 32;
+    private static final int databaseVersion = 34;
 
     // Database Variables
     private final Context context;
@@ -22,6 +22,14 @@ public class DBAdapter {
     public DBAdapter(Context ctx){
         this.context = ctx;
         DBHelper = new DatabaseHelper(context);
+    }
+
+    public static void insertUserGoal(SQLiteDatabase db, int goalID, double targetWeightDouble,  String weeklyGoal) {
+        ContentValues values = new ContentValues();
+        values.put("goal_id", goalID);
+        values.put("goal_target_weight", targetWeightDouble);
+        values.put("goal_weekly_goal", weeklyGoal);
+        db.insert("goals", null, values);
     }
 
     //open database
