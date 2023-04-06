@@ -249,9 +249,9 @@ public class registerScreen extends AppCompatActivity {
 
 
         //insert into goals table
-        String stringInputGoals = "NULL, " + doubleWeightKGDoubleSQL + ", " + goalDateSQL;
+        String stringInputGoals = "NULL, " + doubleWeightKGDoubleSQL + ", " + goalDateSQL + ", " + stringEmailSQL;
         db.insert("goals",
-                "goal_id, goal_current_weight, goal_date",
+                "goal_id, goal_current_weight, goal_date, user_email",
                 stringInputGoals);
 
         db.close();
@@ -261,6 +261,7 @@ public class registerScreen extends AppCompatActivity {
         //if there are no errors, the user will be taken to the next screen
         if (error == 0) {
             Intent i = new Intent(registerScreen.this, registerScreenGoal.class);
+            i.putExtra("email", email);
             startActivity(i);
         }
 

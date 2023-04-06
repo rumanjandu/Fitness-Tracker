@@ -7,11 +7,12 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import android.widget.Toast;
 
 public class DBAdapter {
     // Variables
     private static final String databaseName = "fitnesstrack";
-    private static final int databaseVersion = 34;
+    private static final int databaseVersion = 36;
 
     // Database Variables
     private final Context context;
@@ -24,12 +25,25 @@ public class DBAdapter {
         DBHelper = new DatabaseHelper(context);
     }
 
-    public static void insertUserGoal(SQLiteDatabase db, int goalID, double targetWeightDouble,  String weeklyGoal) {
+    /*public static void insertUserGoal(SQLiteDatabase db, int goalID, double targetWeightDouble,  String weeklyGoal) {
         ContentValues values = new ContentValues();
         values.put("goal_id", goalID);
         values.put("goal_target_weight", targetWeightDouble);
         values.put("goal_weekly_goal", weeklyGoal);
-        db.insert("goals", null, values);
+        db.update("goals", null, values);
+    }*/
+
+    public static boolean updateGoal(SQLiteDatabase db, int goalID, double targetWeightDouble,  String weeklyGoal, Context context) {
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("goal_target_weight", targetWeightDouble);
+        contentValues.put("goal_weekly_goal", weeklyGoal);
+        db.update("goals", contentValues, "goal_id = ?", new String[] {String.valueOf(goalID)});
+
+        int rowsAffected = db.update("goals", contentValues, "goal_id = ?", new String[] {String.valueOf(goalID)});
+        db.close();
+        // Update was successful
+        // Update failed
+        return rowsAffected > 0;
     }
 
     //open database
@@ -159,6 +173,7 @@ public class DBAdapter {
                         " goal_proteins INT," +
                         " goal_carbs INT," +
                         " goal_fat INT," +
+                        " user_email VARCHAR," +
                         " goal_weekly_goal DOUBLE);");
 
             }

@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
@@ -22,6 +23,8 @@ import android.widget.Toast;
 
 public class registerScreenGoal extends AppCompatActivity {
 
+    String email = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +32,8 @@ public class registerScreenGoal extends AppCompatActivity {
         measurementType(findViewById(R.id.spinnerWeeklyGoal));
 
         Button btnSubmit = (Button) findViewById(R.id.buttonSignupSecond);
+        Intent intent = getIntent();
+        email = intent.getStringExtra("email");
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -141,22 +146,26 @@ public class registerScreenGoal extends AppCompatActivity {
 
 
             ContentValues values = new ContentValues();
-            values.put("goal_target_weight", targetWeightDouble);
-            values.put("goal_weekly_goal", weeklyGoal);
-            db.insert("goals", null, values);
 
-            Cursor cursor = db.rawQuery("SELECT last_insert_rowid()", null);
+            Cursor cursor = db.rawQuery("SELECT goals.* " +
+                    "FROM goals " +
+                    "INNER JOIN users ON goals.user_email = users.user_email " +
+                    "WHERE users.user_email = " + "\""+email.toString()+"\"", null);
             int goalId = -1;
             if (cursor.moveToFirst()) {
                 goalId = cursor.getInt(0);
             }
             cursor.close();
 
-            DBAdapter.insertUserGoal(db, goalId, targetWeightDouble, weeklyGoal);
+            boolean success = DBAdapter.updateGoal(db, goalId, targetWeightDouble, weeklyGoal, getApplicationContext());
+            if (success) {
+                Toast.makeText(this, "Goal added successfully", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "Error adding goal", Toast.LENGTH_SHORT).show();
+            }
 
-            db.close();
 
-            finish();
+
         }
     }
 
