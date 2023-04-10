@@ -32,35 +32,21 @@
 
 
     <string-array name="array_weekly_goal_kg">
-        <item>Lose 0.5kg per week</item>
+        <item>Please Select:</item>
         <item>Lose 1kg per week</item>
-        <item>Lose 1.5kg per week</item>
-        <item>Lose 2kg per week</item>
-        <item>Lose 2.5kg per week</item>
-        <item>Lose 3kg per week</item>
+        <item>Lose 0.5kg per week</item>
         <item>Maintain current weight</item>
         <item>Gain 0.5kg per week</item>
         <item>Gain 1kg per week</item>
-        <item>Gain 1.5kg per week</item>
-        <item>Gain 2kg per week</item>
-        <item>Gain 2.5kg per week</item>
-        <item>Gain 3kg per week</item>
     </string-array>
 
     <string-array name="array_weekly_goal_lb">
-        <item>Lose 0.5lb per week</item>
+        <item>Please Select:</item>
         <item>Lose 1lb per week</item>
-        <item>Lose 1.5lb per week</item>
-        <item>Lose 2lb per week</item>
-        <item>Lose 2.5lb per week</item>
-        <item>Lose 3lb per week</item>
+        <item>Lose 0.5lb per week</item>
         <item>Maintain current weight</item>
         <item>Gain 0.5lb per week</item>
         <item>Gain 1lb per week</item>
-        <item>Gain 1.5lb per week</item>
-        <item>Gain 2lb per week</item>
-        <item>Gain 2.5lb per week</item>
-        <item>Gain 3lb per week</item>
     </string-array>
 
     <string-array name="array_weekly_goal_measurement">

@@ -218,14 +218,11 @@ public class registerScreen extends AppCompatActivity {
             Toast.makeText(this, "Sign up successful", Toast.LENGTH_SHORT).show();
         }
 
-        //if all fields are empty, error message will be displayed
-        if (email.isEmpty()) {
-            dobButton.getText().toString();
-        }
+
 
         //Insert into database
 
-        if (error == 0) {
+/*        if (error == 0) {
         DBAdapter db = new DBAdapter(this);
         db.open();
 
@@ -255,13 +252,20 @@ public class registerScreen extends AppCompatActivity {
                 stringInputGoals);
 
         db.close();
-        }
+        }*/
 
 
         //if there are no errors, the user will be taken to the next screen
         if (error == 0) {
             Intent i = new Intent(registerScreen.this, registerScreenGoal.class);
             i.putExtra("email", email);
+            i.putExtra("dob", dob);
+            i.putExtra("gender", selectedGenderValue);
+            i.putExtra("height", heightCMDouble);
+            i.putExtra("weight", weightDouble);
+            i.putExtra("activityLevel", activityLevelString);
+            i.putExtra("measurement", stringMeasurementSystem);
+            i.putExtra("goalDate", todaysDate);
             startActivity(i);
         }
 
@@ -374,7 +378,9 @@ public class registerScreen extends AppCompatActivity {
     }
 
     private String makeDateString(int day, int month, int year) {
-        return getMonthFormat(month) + " " + day + " " + year;
+        String dayStr = (day < 10) ? "0" + day : String.valueOf(day);
+        String monthStr = getMonthFormat(month);
+        return monthStr + " " + dayStr + " " + year;
     }
 
     private String getMonthFormat(int month) {
