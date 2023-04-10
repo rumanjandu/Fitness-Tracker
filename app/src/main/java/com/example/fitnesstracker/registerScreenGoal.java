@@ -210,16 +210,15 @@ public class registerScreenGoal extends AppCompatActivity {
         }*/
 
         double calorieIntake = calculateCalorieIntake(height, weight, age, gender, activityLevel, weeklyGoal);
-        Toast.makeText(this, "Calorie Intake: " + calorieIntake, Toast.LENGTH_SHORT).show();
 
         double proteinIntake = calculateProteinIntake(height, weight, age, gender, activityLevel, weeklyGoal);
-        Toast.makeText(this, "Protein Intake: " + proteinIntake, Toast.LENGTH_SHORT).show();
 
         double carbIntake = calculateCarbIntake(height, weight, age, gender, activityLevel, weeklyGoal);
-        Toast.makeText(this, "Carb Intake: " + carbIntake, Toast.LENGTH_SHORT).show();
 
         double fatIntake = calculateFatIntake(height, weight, age, gender, activityLevel, weeklyGoal);
-        Toast.makeText(this, "Fat Intake: " + fatIntake, Toast.LENGTH_SHORT).show();
+
+        double energyIntake = calculateEnergyIntake(height, weight, age, gender, activityLevel, weeklyGoal);
+
 
 
         //Insert into database
@@ -236,6 +235,13 @@ public class registerScreenGoal extends AppCompatActivity {
         Double doubleWeightKGDoubleSQL = db.quoteSmart(weight);
         String activityLevelSQL = db.quoteSmart(activityLevel);
         String stringMeasurementSQL = db.quoteSmart(measurementSystem);
+        Double doubleCalorieIntakeSQL = db.quoteSmart(calorieIntake);
+        Double doubleProteinIntakeSQL = db.quoteSmart(proteinIntake);
+        Double doubleCarbIntakeSQL = db.quoteSmart(carbIntake);
+        Double doubleFatIntakeSQL = db.quoteSmart(fatIntake);
+        Double doubleTargetWeightSQL = db.quoteSmart(targetWeightDouble);
+        String doubleWeeklyGoalSQL = db.quoteSmart(weeklyGoal);
+        Double doubleEnergyIntakeSQL = db.quoteSmart(energyIntake);
 
 
         //input for user table
@@ -248,9 +254,9 @@ public class registerScreenGoal extends AppCompatActivity {
 
 
         //insert into goals table
-        String stringInputGoals = "NULL, " + doubleWeightKGDoubleSQL + ", " + goalDateSQL + ", " + stringEmailSQL;
+        String stringInputGoals = "NULL, " + doubleWeightKGDoubleSQL + ", " + goalDateSQL + ", " + stringEmailSQL + ", " + doubleTargetWeightSQL + ", " + doubleWeeklyGoalSQL + ", " + doubleCalorieIntakeSQL + ", " + doubleProteinIntakeSQL + ", " + doubleCarbIntakeSQL + ", " + doubleFatIntakeSQL + ", " + doubleEnergyIntakeSQL;
         db.insert("goals",
-                "goal_id, goal_current_weight, goal_date, user_email",
+                "goal_id, goal_current_weight, goal_date, user_email, goal_target_weight, goal_weekly_goal, goal_kcal, goal_protein, goal_carbs, goal_fat, goal_energy",
                 stringInputGoals);
 
         db.close();
@@ -446,6 +452,20 @@ public class registerScreenGoal extends AppCompatActivity {
 
         return fatIntake;
     }
+
+    public double calculateEnergyIntake(double height, double weight, int age, String gender, String activityLevel, String weeklyGoal) {
+        // Calculate daily calorie intake using existing function
+        double calorieIntake = calculateCalorieIntake(height, weight, age, gender, activityLevel, weeklyGoal);
+
+        // Convert calorie intake to joules
+        double energyIntake = calorieIntake * 4.184;
+
+        // Round to 2 decimal places
+        energyIntake = Math.round(energyIntake * 100.0) / 100.0;
+
+        return energyIntake;
+    }
+
 
 
 }

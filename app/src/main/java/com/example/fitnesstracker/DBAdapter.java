@@ -12,7 +12,7 @@ import android.widget.Toast;
 public class DBAdapter {
     // Variables
     private static final String databaseName = "fitnesstrack";
-    private static final int databaseVersion = 36;
+    private static final int databaseVersion = 38;
 
     // Database Variables
     private final Context context;
@@ -168,11 +168,11 @@ public class DBAdapter {
                         " goal_date DATE," +
                         " goal_current_weight DOUBLE," +
                         " goal_target_weight DOUBLE," +
-                        " goal_kcal INT," +
-                        " goal_energy INT," +
-                        " goal_proteins INT," +
-                        " goal_carbs INT," +
-                        " goal_fat INT," +
+                        " goal_kcal DOUBLE," +
+                        " goal_energy DOUBLE," +
+                        " goal_protein DOUBLE," +
+                        " goal_carbs DOUBLE," +
+                        " goal_fat DOUBLE," +
                         " user_email VARCHAR," +
                         " goal_weekly_goal DOUBLE);");
 
