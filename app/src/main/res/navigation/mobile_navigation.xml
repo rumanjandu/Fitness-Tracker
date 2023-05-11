@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.example.fitnesstracker.ui.home.HomeFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/nav_profile"
+        android:name="com.example.fitnesstracker.ui.profile.ProfileFragment"
+        android:label="@string/menu_profile"
+        tools:layout="@layout/fragment_profile" />
+
+    <fragment
+        android:id="@+id/nav_goal"
+        android:name="com.example.fitnesstracker.ui.goal.GoalFragment"
+        android:label="@string/menu_goal"
+        tools:layout="@layout/fragment_goal" />
+    <fragment
+        android:id="@+id/nav_diet"
+        android:name="com.example.fitnesstracker.ui.diet.DietFragment"
+        android:label="@string/diet_tracker"
+        tools:layout="@layout/fragment_diet" />
+    <fragment
+        android:id="@+id/nav_food"
+        android:name="com.example.fitnesstracker.ui.food.FoodFragment"
+        android:label="@string/menu_food"
+        tools:layout="@layout/fragment_food" />
+</navigation>

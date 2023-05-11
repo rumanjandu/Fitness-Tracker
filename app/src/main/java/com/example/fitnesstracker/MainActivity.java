@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //Count rows in food
         int numberRows = db.count("food");
 
-        if(numberRows < 1){
+        if(numberRows < 0){
             DBSetupInsert setupInsert = new DBSetupInsert(this);
             setupInsert.insertAllFood();
         }
@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //count number of rows in user
         numberRows = db.count("users");
         if (numberRows < 10){
-            Intent i = new Intent(MainActivity.this, registerScreen.class);
+            Intent i = new Intent(MainActivity.this, Home_Page.class);
             startActivity(i);
         }
 

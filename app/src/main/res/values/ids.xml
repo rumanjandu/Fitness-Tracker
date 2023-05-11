@@ -6,4 +6,5 @@
     <item name="textViewHeight" type="id" />
     <item name="textViewWeight" type="id" />
     <item name="textViewActivityLevel" type="id" />
+    <item name="flContent" type="id" />
 </resources>

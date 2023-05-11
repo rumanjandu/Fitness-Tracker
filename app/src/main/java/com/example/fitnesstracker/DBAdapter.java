@@ -12,7 +12,7 @@ import android.widget.Toast;
 public class DBAdapter {
     // Variables
     private static final String databaseName = "fitnesstrack";
-    private static final int databaseVersion = 38;
+    private static final int databaseVersion = 41;
 
     // Database Variables
     private final Context context;
@@ -222,10 +222,9 @@ public class DBAdapter {
                 db.execSQL("CREATE TABLE IF NOT EXISTS food ("
                         +  " food_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                             " food_name VARCHAR," +
-                            " food_manufacturer VARCHAR," +
                             " food_serving_size DOUBLE," +
                             " food_serving_measurement VARCHAR," +
-                            " food_serving_name_number DOUBLE," +
+                            " food_serving_name_number INT," +
                             " food_serving_name_word VARCHAR," +
                             " food_energy DOUBLE," +
                             " food_proteins DOUBLE," +

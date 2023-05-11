@@ -114,6 +114,12 @@ public class registerScreenGoal extends AppCompatActivity {
             textViewTargetWeight.setTextColor(Color.BLACK);
         }
 
+        if (measurementSystem.equals("Imperial")){
+            targetWeightDouble = targetWeightDouble * 0.453592;
+            //round to 2 decimal places
+            targetWeightDouble = Math.round(targetWeightDouble * 100.0) / 100.0;
+        }
+
         //weekly weight goal error checking
         TextView textViewWeeklyGoal = (TextView) findViewById(R.id.textViewWeeklyGoal);
         Spinner spinnerWeeklyGoal = (Spinner) findViewById(R.id.spinnerWeeklyGoal);
@@ -177,8 +183,6 @@ public class registerScreenGoal extends AppCompatActivity {
         LocalDate dateOfBirth = LocalDate.parse(dob, DateTimeFormatter.ofPattern("MMM dd yyyy"));
         LocalDate currentDate = LocalDate.now();
         int age = Period.between(dateOfBirth, currentDate).getYears();
-        Toast.makeText(this, "Age: " + age, Toast.LENGTH_SHORT).show();
-
         //calculate estimated calorie intake based on activity level, gender, age, height, weight
 
 
@@ -262,6 +266,14 @@ public class registerScreenGoal extends AppCompatActivity {
         db.close();
         }
 
+       //if no errors, navigate to next page
+        if (error == 0) {
+            Intent i = new Intent(this, Home_Page.class);
+            startActivity(i);
+        }
+
+
+
     }
 
         private boolean weeklyGoalSelected(Spinner spinnerWeeklyGoal) {
@@ -275,11 +287,19 @@ public class registerScreenGoal extends AppCompatActivity {
         double bmr;
         double activityFactor;
 
-        // Calculate BMR based on gender
+        //convert metric values to imperial values first
+        if (measurementSystem.equals("Metric")) {
+            height = height * 0.393701;
+            weight = weight * 2.20462;
+        }else if (measurementSystem.equals("Imperial")){
+            //do nothing
+        }
+
+            // Calculate BMR based on gender
         if (gender.equals("Male")) {
-            bmr = 88.362 + (13.397 * weight) + (4.799 * height) - (5.677 * age);
+            bmr = 88.362 + (13.397 * weight) - (5.677 * age);
         } else if (gender.equals("Female")) {
-            bmr = 447.593 + (9.247 * weight) + (3.098 * height) - (4.330 * age);
+            bmr = 447.593 + (9.247 * weight) - (4.330 * age);
         } else {
             throw new IllegalArgumentException("Invalid gender. Gender must be 'male' or 'female'");
         }
@@ -356,6 +376,13 @@ public class registerScreenGoal extends AppCompatActivity {
         double weightGoalFactor;
         double activityFactor;
 
+        //convert metric values to imperial values first
+        if (measurementSystem.equals("Metric")) {
+            weight = weight * 2.20462;
+        }else if (measurementSystem.equals("Imperial")){
+            //do nothing
+        }
+
         // Determine activity factor based on activity level
         switch (activityLevel) {
             case "Little to no exercise":
@@ -391,9 +418,9 @@ public class registerScreenGoal extends AppCompatActivity {
 
         //calculate bmr
         if (gender.contentEquals("Male")) {
-            bmr = 88.362 + (13.397 * weight) + (4.799 * height) - (5.677 * age);
+            bmr = 88.362 + (13.397 * weight) - (5.677 * age);
         } else if (gender.contentEquals("Female")){
-            bmr = 447.593 + (9.247 * weight) + (3.098 * height) - (4.330 * age);
+            bmr = 447.593 + (9.247 * weight) - (4.330 * age);
         }
 
         //calculate calorie intake
