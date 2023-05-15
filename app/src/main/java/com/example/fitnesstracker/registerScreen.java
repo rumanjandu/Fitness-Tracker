@@ -24,6 +24,7 @@ public class registerScreen extends AppCompatActivity {
 
     private DatePickerDialog datePickerDialog;
     private Button dobButton;
+    private DBAdapter dbAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +34,7 @@ public class registerScreen extends AppCompatActivity {
         dobButton = findViewById(R.id.dobPickerButton);
         dobButton.setText(getTodaysDate());
         measurementChanged();
+        dbAdapter = new DBAdapter(this);
 
         Button buttonSignup = (Button) findViewById(R.id.buttonSignup);
         buttonSignup.setOnClickListener(new View.OnClickListener() {
@@ -48,6 +50,18 @@ public class registerScreen extends AppCompatActivity {
         //error checking
         int error = 0;
 
+        //name
+        TextView textViewName = (TextView) findViewById(R.id.textViewName);
+        EditText editTextName = (EditText) findViewById(R.id.editTextName);
+        String name = editTextName.getText().toString();
+        if (name.isEmpty()) {
+            editTextName.setError("Name is required");
+            error = 1;
+            textViewName.setTextColor(Color.RED);
+        } else {
+            textViewName.setTextColor(Color.BLACK);
+        }
+
         //email
         TextView textViewEmail = (TextView) findViewById(R.id.textViewEmail);
 
@@ -60,6 +74,28 @@ public class registerScreen extends AppCompatActivity {
             textViewEmail.setTextColor(Color.RED);
         } else {
             textViewEmail.setTextColor(Color.BLACK);
+        }
+
+        if (dbAdapter.checkUserExists(email)) {
+            editTextEmail.setError("Email already exists");
+            error = 1;
+            textViewEmail.setTextColor(Color.RED);
+            Toast.makeText(this, "Email already exists", Toast.LENGTH_SHORT).show();
+        } else {
+            textViewEmail.setTextColor(Color.BLACK);
+        }
+
+
+        //password
+        TextView textViewPassword = (TextView) findViewById(R.id.textViewPassword);
+        EditText editTextPassword = (EditText) findViewById(R.id.editTextPassword);
+        String password = editTextPassword.getText().toString();
+        if (password.isEmpty()) {
+            editTextPassword.setError("Password is required");
+            error = 1;
+            textViewPassword.setTextColor(Color.RED);
+        } else {
+            textViewPassword.setTextColor(Color.BLACK);
         }
 
         //dob
@@ -218,7 +254,7 @@ public class registerScreen extends AppCompatActivity {
 
         //submit button will only work if there are no errors and all fields are filled in correctly
         if (error == 0) {
-            Toast.makeText(this, "Sign up successful", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Sign up almost done!", Toast.LENGTH_SHORT).show();
         }
 
 
@@ -262,6 +298,8 @@ public class registerScreen extends AppCompatActivity {
         if (error == 0) {
             Intent i = new Intent(registerScreen.this, registerScreenGoal.class);
             i.putExtra("email", email);
+            i.putExtra("name", name);
+            i.putExtra("password", password);
             i.putExtra("dob", dob);
             i.putExtra("gender", selectedGenderValue);
             i.putExtra("height", heightCMDouble);

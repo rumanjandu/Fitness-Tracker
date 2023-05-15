@@ -97,7 +97,9 @@
     <string name="menu_goal">Goal</string>
     <string name="diet_tracker">Diet</string>
     <string name="menu_food">Food</string>
-
+    <string name="name">Full Name:</string>
+    <string name="password">Password:</string>
+    <string name="get_started">Get Started</string>
 
 
 </resources>

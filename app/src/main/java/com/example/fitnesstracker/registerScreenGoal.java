@@ -27,6 +27,8 @@ import java.time.format.DateTimeFormatter;
 public class registerScreenGoal extends AppCompatActivity {
 
     String email = "";
+    String password = "";
+    String name = "";
     String dob = "";
     String gender = "";
     String measurementSystem = "";
@@ -44,6 +46,8 @@ public class registerScreenGoal extends AppCompatActivity {
         Button btnSubmit = (Button) findViewById(R.id.buttonSignupSecond);
         Intent intent = getIntent();
         email = intent.getStringExtra("email");
+        password = intent.getStringExtra("password");
+        name = intent.getStringExtra("name");
         dob = intent.getStringExtra("dob");
         gender = intent.getStringExtra("gender");
         height = intent.getDoubleExtra("height", 0.0);
@@ -233,7 +237,10 @@ public class registerScreenGoal extends AppCompatActivity {
 
         //quote smart
         String stringEmailSQL = db.quoteSmart(email);
+        String stringNameSQL = db.quoteSmart(name);
+        String stringPasswordSQL = db.quoteSmart(password);
         String stringDOBSQL = db.quoteSmart(dob);
+        String stringAgeSQL = String.valueOf(db.quoteSmart(age));
         String stringGenderSQL = db.quoteSmart(gender);
         Double doubleHeightCMDoubleSQL = db.quoteSmart(height);
         Double doubleWeightKGDoubleSQL = db.quoteSmart(weight);
@@ -249,9 +256,9 @@ public class registerScreenGoal extends AppCompatActivity {
 
 
         //input for user table
-        String stringInputUsers = "NULL, " + stringEmailSQL + ", " + stringDOBSQL + ", " + stringGenderSQL + ", " + doubleHeightCMDoubleSQL + ", " +  activityLevelSQL + ", " + stringMeasurementSQL;
+        String stringInputUsers = "NULL, " + stringEmailSQL + ", " + stringDOBSQL + ", " + stringGenderSQL + ", " + doubleHeightCMDoubleSQL + ", " +  activityLevelSQL + ", " + stringMeasurementSQL + ", " + stringNameSQL + ", " + stringPasswordSQL + ", " + stringAgeSQL;
         db.insert("users",
-                "user_id, user_email, user_dob, user_gender, user_height, user_activity_level, user_measurement_system",
+                "user_id, user_email, user_dob, user_gender, user_height, user_activity_level, user_measurement_system, user_name, user_password, user_age",
                 stringInputUsers);
 
        String goalDateSQL = db.quoteSmart(todaysDate);
@@ -268,7 +275,7 @@ public class registerScreenGoal extends AppCompatActivity {
 
        //if no errors, navigate to next page
         if (error == 0) {
-            Intent i = new Intent(this, Home_Page.class);
+            Intent i = new Intent(this, MainActivity.class);
             startActivity(i);
         }
 

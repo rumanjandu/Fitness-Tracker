@@ -12,7 +12,7 @@ import android.widget.Toast;
 public class DBAdapter {
     // Variables
     private static final String databaseName = "fitnesstrack";
-    private static final int databaseVersion = 41;
+    private static final int databaseVersion = 47;
 
     // Database Variables
     private final Context context;
@@ -66,7 +66,7 @@ public class DBAdapter {
         } catch (NumberFormatException e) {
             System.out.println("Could not parse " + e);
         }
-        if (isNumeric == false){
+        if (!isNumeric){
             //Escapes special characters in a string for use in an SQL statement
             if (value != null && value.length() > 0) {
                 value = value.replace("\\", "\\\\");
@@ -104,17 +104,81 @@ public class DBAdapter {
         this.close();
     }
 
-    public boolean checkUserExists(String username){
+    // Check if a user with the given email and password exists
+    public boolean checkUser(String email, String password) {
         this.open();
-        Cursor c = db.rawQuery("SELECT * FROM users WHERE username = '" + username + "'", null);
-        if(c.moveToFirst()){
-            do{
-             return true;
-            }while(c.moveToNext());
+        Cursor cursor = db.rawQuery("SELECT * FROM users WHERE user_email = ? AND user_password = ?", new String[]{email, password});
+        boolean userExists = (cursor.getCount() > 0);
+        cursor.close();
+        this.close();
+        return userExists;
+    }
+
+    public Cursor getUserGoals(String userEmail) {
+        if (userEmail == null || userEmail.isEmpty()) {
+            // Handle the case where userEmail is null or empty
+            return null;
+        }
+
+        this.open();
+        Cursor cursor = db.rawQuery("SELECT * FROM goals WHERE user_email = ?", new String[]{userEmail});
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+                // Logging statements to track column names and values
+                String[] columnNames = cursor.getColumnNames();
+                for (String columnName : columnNames) {
+                    int columnIndex = cursor.getColumnIndex(columnName);
+                    String columnValue = cursor.getString(columnIndex);
+                    Log.d("DBAdapter", "Column Name: " + columnName + ", Value: " + columnValue);
+                }
+            } else {
+                Log.d("DBAdapter", "Cursor is empty.");
+            }
+        } else {
+            Log.d("DBAdapter", "Cursor is null.");
         }
         this.close();
-        return false;
+        return cursor;
     }
+
+    public boolean checkUserExists(String email) {
+        this.open();
+        Cursor c = db.rawQuery("SELECT * FROM users WHERE user_email = ?", new String[]{email});
+        boolean userExists = (c.getCount() > 0);
+        c.close();
+        this.close();
+        return userExists;
+    }
+
+
+    // Retrieve user details by email
+    public Cursor getUserByEmail(String userEmail) {
+        if (userEmail == null || userEmail.isEmpty()) {
+            // Handle the case where userEmail is null or empty
+            return null;
+        }
+
+        this.open();
+        Cursor cursor = db.rawQuery("SELECT * FROM users WHERE user_email = ?", new String[]{userEmail});
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+                // Logging statements to track column names and values
+                String[] columnNames = cursor.getColumnNames();
+                for (String columnName : columnNames) {
+                    int columnIndex = cursor.getColumnIndex(columnName);
+                    String columnValue = cursor.getString(columnIndex);
+                    Log.d("DBAdapter", "Column Name: " + columnName + ", Value: " + columnValue);
+                }
+            } else {
+                Log.d("DBAdapter", "Cursor is empty.");
+            }
+        } else {
+            Log.d("DBAdapter", "Cursor is null.");
+        }
+        this.close();
+        return cursor;
+    }
+
 
     public int count(String table){
         Cursor mCount = db.rawQuery("SELECT COUNT(*) FROM " + table + "", null);
@@ -251,6 +315,7 @@ public class DBAdapter {
                 db.execSQL("CREATE TABLE IF NOT EXISTS users (" +
                         " user_id INTEGER PRIMARY KEY AUTOINCREMENT," +
                         " user_email VARCHAR," +
+                        " user_name VARCHAR," +
                         " user_password VARCHAR," +
                         " user_alias VARCHAR," +
                         " user_dob DATE," +

@@ -7,4 +7,5 @@
     <item name="textViewWeight" type="id" />
     <item name="textViewActivityLevel" type="id" />
     <item name="flContent" type="id" />
+    <item name="fullname_field" type="id" />
 </resources>
