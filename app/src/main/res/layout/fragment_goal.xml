@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/background_fade"
     tools:context=".ui.goal.GoalFragment">
 
     <TextView
@@ -19,4 +21,142 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Fitness Goals CardView -->
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="6dp"
+        android:padding="26dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/cardview_drawable"
+            android:orientation="vertical">
+
+            <!-- Fitness Goals Title -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="Fitness Goals"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:paddingBottom="16dp" />
+
+            <!-- Goal Title -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:textStyle="bold"
+                android:text="Goal Title"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/editTextGoalTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter goal title"
+                android:textStyle="italic"
+                android:paddingLeft="8dp"
+                android:paddingBottom="16dp"
+                android:textSize="12sp" />
+
+            <!-- Goal Description -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Goal Description"
+                android:layout_marginLeft="5dp"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:paddingTop="16dp" />
+
+            <EditText
+                android:id="@+id/editTextGoalDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter goal description"
+                android:textStyle="italic"
+                android:paddingLeft="8dp"
+                android:paddingBottom="16dp"
+                android:textSize="12sp" />
+
+            <!-- Target Calories Burned per Week -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Target Calories Burned per Week"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginLeft="5dp"
+                android:paddingTop="16dp" />
+
+            <EditText
+                android:id="@+id/editTextTargetCalories"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter target calories"
+                android:textStyle="italic"
+                android:paddingLeft="8dp"
+                android:paddingBottom="16dp"
+                android:textSize="12sp" />
+
+            <!-- Workouts per Week -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Workouts per Week"
+                android:layout_marginLeft="5dp"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:paddingTop="16dp" />
+
+            <EditText
+                android:id="@+id/editTextWorkoutsPerWeek"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter workouts per week"
+                android:textStyle="italic"
+                android:paddingLeft="8dp"
+                android:paddingBottom="16dp"
+                android:textSize="12sp" />
+
+            <!-- Minutes per Workout -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Minutes per Workout"
+                android:layout_marginLeft="5dp"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:paddingTop="16dp" />
+
+            <EditText
+                android:id="@+id/editTextMinutesPerWorkout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="italic"
+                android:paddingBottom="16dp"
+                android:paddingLeft="8dp"
+                android:hint="Enter minutes per workout"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <!-- Save Button -->
+    <Button
+        android:id="@+id/buttonSaveGoal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Save Goal"
+        android:layout_margin="16dp"
+        android:textSize="16sp"
+        android:textColor="@android:color/white"
+        android:background="@color/colorPrimary" />
+
+</LinearLayout>

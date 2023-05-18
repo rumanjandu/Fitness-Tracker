@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
+    android:background="@drawable/background_fade"
     android:fitsSystemWindows="true"
     tools:context=".registerScreen"
     tools:ignore="SpeakableTextPresentCheck">
@@ -49,6 +49,7 @@
                     android:id="@+id/textViewName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/black"
                     android:text="@string/name">
 
                 </TextView>
@@ -70,6 +71,7 @@
                     android:id="@+id/textViewEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/black"
                     android:text="@string/email">
 
                 </TextView>
@@ -91,6 +93,7 @@
                     android:id="@+id/textViewPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/black"
                     android:text="@string/password">
 
                 </TextView>
@@ -113,6 +116,7 @@
                     android:id="@+id/textViewDOB"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/black"
                     android:text="@string/dob"/>
 
 
@@ -142,6 +146,7 @@
                     android:id="@+id/textViewGender"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/black"
                     android:text="@string/gender"
                     android:layout_marginTop="12dp" />
 
@@ -164,6 +169,7 @@
                                 android:id="@+id/radioButtonGenderMale"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:textColor="@color/black"
                                 android:text="@string/male"
                                 android:layout_marginRight="5dp"/>
 
@@ -171,6 +177,7 @@
                                 android:id="@+id/radioButtonGenderFemale"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:textColor="@color/black"
                                 android:text="@string/female" />
                         </RadioGroup>
                     </TableRow>
@@ -189,6 +196,7 @@
                     android:id="@+id/textViewMeasurementSystem"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/black"
                     android:text="@string/measurements"
                     android:layout_marginTop="0dp" />
 
@@ -211,6 +219,7 @@
                     android:id="@+id/textViewHeight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/black"
                     android:text="Height"
                     android:layout_marginTop="16dp"/>
 
@@ -264,6 +273,7 @@
                     android:id="@+id/textViewWeight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/black"
                     android:text="Weight"
                     android:layout_marginTop="10dp"/>
 
@@ -302,6 +312,7 @@
                     android:id="@+id/textViewActivityLevel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/black"
                     android:text="Activity Level"
                     android:layout_marginTop="2dp"/>
 

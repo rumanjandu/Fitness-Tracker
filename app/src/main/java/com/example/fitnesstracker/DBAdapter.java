@@ -12,7 +12,7 @@ import android.widget.Toast;
 public class DBAdapter {
     // Variables
     private static final String databaseName = "fitnesstrack";
-    private static final int databaseVersion = 47;
+    private static final int databaseVersion = 49;
 
     // Database Variables
     private final Context context;
@@ -149,6 +149,78 @@ public class DBAdapter {
         this.close();
         return userExists;
     }
+
+    public Cursor getFoodByQuery(String searchQuery) {
+        if (searchQuery == null || searchQuery.isEmpty()) {
+            // Handle the case where searchQuery is null or empty
+            return null;
+        }
+
+        // Add wildcard characters to the search query
+        String wildcardQuery = "%" + searchQuery + "%";
+
+        this.open();
+        Cursor cursor = db.rawQuery("SELECT * FROM food WHERE food_name LIKE ?", new String[]{wildcardQuery});
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+                // Logging statements to track column names and values
+                int columnIndex;
+                String columnValue;
+                do {
+                    columnIndex = cursor.getColumnIndex("food_name");
+                    if (columnIndex != -1) {
+                        columnValue = cursor.getString(columnIndex);
+                        Log.d("DBAdapter", "Food Name: " + columnValue);
+                    }
+
+                    columnIndex = cursor.getColumnIndex("food_serving_size");
+                    if (columnIndex != -1) {
+                        columnValue = cursor.getString(columnIndex);
+                        Log.d("DBAdapter", "Food Name: " + columnValue);
+                    }
+
+                    columnIndex = cursor.getColumnIndex("food_calories");
+                    if (columnIndex != -1) {
+                        columnValue = cursor.getString(columnIndex);
+                        Log.d("DBAdapter", "Food Calories: " + columnValue);
+                    }
+
+                    columnIndex = cursor.getColumnIndex("food_energy");
+                    if (columnIndex != -1) {
+                        columnValue = cursor.getString(columnIndex);
+                        Log.d("DBAdapter", "Food Energy: " + columnValue);
+                    }
+
+                    columnIndex = cursor.getColumnIndex("food_proteins");
+                    if (columnIndex != -1) {
+                        columnValue = cursor.getString(columnIndex);
+                        Log.d("DBAdapter", "Food Proteins: " + columnValue);
+                    }
+
+                    columnIndex = cursor.getColumnIndex("food_carbohydrates");
+                    if (columnIndex != -1) {
+                        columnValue = cursor.getString(columnIndex);
+                        Log.d("DBAdapter", "Food Carbohydrates: " + columnValue);
+                    }
+
+                    columnIndex = cursor.getColumnIndex("food_fat");
+                    if (columnIndex != -1) {
+                        columnValue = cursor.getString(columnIndex);
+                        Log.d("DBAdapter", "Food Fat: " + columnValue);
+                    }
+
+                    Log.d("DBAdapter", "-------------------");
+                } while (cursor.moveToNext());
+            } else {
+                Log.d("DBAdapter", "Cursor is empty.");
+            }
+        } else {
+            Log.d("DBAdapter", "Cursor is null.");
+        }
+        return cursor;
+    }
+
+
 
 
     // Retrieve user details by email
@@ -290,6 +362,7 @@ public class DBAdapter {
                             " food_serving_measurement VARCHAR," +
                             " food_serving_name_number INT," +
                             " food_serving_name_word VARCHAR," +
+                            " food_calories DOUBLE," +
                             " food_energy DOUBLE," +
                             " food_proteins DOUBLE," +
                             " food_carbohydrates DOUBLE," +

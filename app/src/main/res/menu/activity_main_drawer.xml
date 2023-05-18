@@ -24,5 +24,9 @@
             android:id="@+id/nav_food"
             android:icon="@drawable/icons8_food_bar_24"
             android:title="@string/menu_food" />
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/icons8_logout_50"
+            android:title="@string/log_out" />
     </group>
 </menu>

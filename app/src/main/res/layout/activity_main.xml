@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/background"
+    android:background="@drawable/background_fade"
     tools:context=".MainActivity">
 
     <LinearLayout
@@ -21,9 +21,10 @@
             android:textSize="24sp"
             android:gravity="center"
             android:textStyle="bold|italic"
-            android:textColor="@color/black">
+            android:textColor="@color/white">
 
         </TextView>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -55,5 +56,7 @@
             android:id="@+id/register_button">
 
         </Button>
+
     </LinearLayout>
+
     </ScrollView>
