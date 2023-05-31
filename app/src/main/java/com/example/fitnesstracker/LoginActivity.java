@@ -27,9 +27,13 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login_screen_v2);
 
         mEmail = findViewById(R.id.email);
+
         mPassword = findViewById(R.id.password);
+
         mLoginButton = findViewById(R.id.loginscreen_button);
+
         mRegisterLink = findViewById(R.id.register_link);
+
         dbAdapter = new DBAdapter(this);
 
         mLoginButton.setOnClickListener(new View.OnClickListener(){

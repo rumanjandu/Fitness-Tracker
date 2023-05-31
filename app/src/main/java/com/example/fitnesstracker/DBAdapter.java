@@ -219,10 +219,6 @@ public class DBAdapter {
         }
         return cursor;
     }
-
-
-
-
     // Retrieve user details by email
     public Cursor getUserByEmail(String userEmail) {
         if (userEmail == null || userEmail.isEmpty()) {

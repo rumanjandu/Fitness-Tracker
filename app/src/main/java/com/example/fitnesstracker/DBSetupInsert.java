@@ -98,6 +98,7 @@ public class DBSetupInsert {
         setupInsertToFood("72, 'Fish', 100, 'g', 1, 'cup', 206, 862, 0, 0, 0, 206, 0, 0, 0, 1, 0, 1, 'fish_a', 'fish_b', 'fish_c', 'Fish is a great source of vitamin B12, vitamin D, and selenium. Fish is also a good source of protein, phosphorus, and vitamin B6.'");
         setupInsertToFood("73, 'Salmon', 100, 'g', 1, 'cup', 208, 870, 0, 0, 0, 208, 0, 0, 0, 1, 0, 1, 'salmon_a', 'salmon_b', 'salmon_c', 'Salmon is a great source of vitamin B12, vitamin D, and selenium. Salmon is also a good source of protein, phosphorus, and vitamin B6.'");
         setupInsertToFood("74, 'Avocado', 100, 'g', 1, 'cup', 160, 670, 0, 0, 0, 160, 0, 0, 0, 1, 0, 1, 'avocado_a', 'avocado_b', 'avocado_c', 'Avocado is a great source of vitamin K, folate, and vitamin C. Avocado is also a good source of potassium, vitamin B5, and vitamin B6.'");
+        setupInsertToFood("75, 'Aubergine', 100, 'g', 1, 'cup', 25, 104, 0, 0, 0, 25, 0, 0, 0, 1, 0, 1, 'aubergine_a', 'aubergine_b', 'aubergine_c', 'Aubergine is a great source of dietary fiber, vitamin B1, and copper. Aubergine is also a good source of manganese, vitamin B6, and folate.'");
     }
 
 
