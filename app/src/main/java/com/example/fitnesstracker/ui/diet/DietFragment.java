@@ -25,8 +25,6 @@ public class DietFragment extends Fragment {
         binding = FragmentDietBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textSlideshow;
-        DietViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 

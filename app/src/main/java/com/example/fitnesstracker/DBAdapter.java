@@ -12,7 +12,7 @@ import android.widget.Toast;
 public class DBAdapter {
     // Variables
     private static final String databaseName = "fitnesstrack";
-    private static final int databaseVersion = 49;
+    private static final int databaseVersion = 50;
 
     // Database Variables
     private final Context context;
